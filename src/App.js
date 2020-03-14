@@ -20,6 +20,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(this.state.covid19TimeSeriesData)
     return (
       <div className="App">
         <WorldMapOverview
@@ -27,6 +28,7 @@ class App extends React.Component {
           onSelectCountry={this.onSelectCountry.bind(this)}
         />
         <CasesSeriesView
+          timeSeriesData={this.state.covid19TimeSeriesData}
           country={this.state.selectedCountry}
         />
       </div>

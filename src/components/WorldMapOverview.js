@@ -60,12 +60,10 @@ const loadCountryCasesData = timeSeriesData => {
     }
   }
 
-  let map1 = Object.entries(countryToCases).map(([country, cases]) => ({
+  return Object.entries(countryToCases).map(([country, cases]) => ({
     name: mapCountryName(country),
     value: cases
   }))
-  console.log(map1)
-  return map1
 }
 
 const mapCountryName = country => {
