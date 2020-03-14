@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import './App.css'
+import WorldMapOverview from './components/WorldMapOverview'
+import {loadCovid19TimeSeriesData} from './requests/loadCovid19TimeSeriesData'
+import CasesSeriesView from './components/CasesSeriesView'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+
+  state = {
+    covid19TimeSeriesData: null,
+    selectedCountry: null,
+  }
+
+  componentDidMount() {
+    loadCovid19TimeSeriesData().then(covid19TimeSeriesData => this.setState({covid19TimeSeriesData}))
+  }
+
+  onSelectCountry(selectedCountry) {
+    this.setState({selectedCountry})
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <WorldMapOverview
+          timeSeriesData={this.state.covid19TimeSeriesData}
+          onSelectCountry={this.onSelectCountry.bind(this)}
+        />
+        <CasesSeriesView
+          country={this.state.selectedCountry}
+        />
+      </div>
+    )
+  }
 }
 
-export default App;
+export default App
