@@ -1,6 +1,7 @@
 import React from 'react'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts/highmaps'
+import {mapCountryName} from '../util/mapCountryName'
 
 const map = require('../highmaps/world')
 
@@ -66,22 +67,9 @@ const loadCountryCasesData = timeSeriesData => {
   }))
 }
 
-const mapCountryName = country => {
-  const countryMap = {
-    'North Macedonia': 'Macedonia',
-    'US': 'United States of America',
-    'Korea, South': 'South Korea',
-    'Czechia': 'Czech Republic',
-    'Congo (Kinshasa)': 'Democratic Republic of the Congo',
-    'Cote d\'Ivoire': 'Ivory Coast'
-  }
-  if (country in countryMap) {
-    return countryMap[country]
-  }
-  return country
-}
-
 class WorldMapOverview extends React.Component {
+
+
 
   render() {
     return (

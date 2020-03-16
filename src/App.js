@@ -20,7 +20,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.covid19TimeSeriesData)
     return (
       <div className="App">
         <WorldMapOverview

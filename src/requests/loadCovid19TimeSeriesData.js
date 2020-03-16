@@ -7,6 +7,7 @@ const loadCovid19TimeSeriesData = () => new Promise((resolve, reject) => {
   axios
     .get(dataSourceUrl)
     .then(res => resolve(Papa.parse(res.data).data))
+    .catch(reject)
 })
 
 export {loadCovid19TimeSeriesData}

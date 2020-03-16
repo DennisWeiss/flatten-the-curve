@@ -9,7 +9,9 @@
     "axios": "^0.19.2",
     "highcharts": "^8.0.4",
     "highcharts-react-official": "^3.0.0",
+    "moment": "^2.24.0",
     "papaparse": "^5.1.1",
+    "ramda": "^0.27.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-scripts": "3.4.0"
