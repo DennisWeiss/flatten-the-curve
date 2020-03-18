@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.9.5",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -10,6 +11,7 @@
     "highcharts": "^8.0.4",
     "highcharts-react-official": "^3.0.0",
     "moment": "^2.24.0",
+    "node-sass": "^4.13.1",
     "papaparse": "^5.1.1",
     "ramda": "^0.27.0",
     "react": "^16.13.0",

@@ -5,6 +5,9 @@ import moment from 'moment'
 import {mapCountryName} from '../util/mapCountryName'
 import {computePredictionFunction} from '../prediction/prediction'
 import {loadPopulationSize} from '../requests/loadPopulationSize'
+import PredictionParams from './PredictionParams'
+import Grid from '@material-ui/core/Grid'
+import styles from './CasesSerisView.module.scss'
 
 const getOptions = (data, predictionData) => ({
   chart: {
@@ -55,7 +58,7 @@ const getOptions = (data, predictionData) => ({
     type: 'area',
     name: 'Predicted actual cases',
     data: predictionData,
-  }]
+  }],
 })
 
 const extractTimeSeriesData = (timeSeriesData, country) => {
@@ -126,7 +129,7 @@ const getActiveCasesOptions = duration => predictionData => ({
     type: 'area',
     name: 'Predicted active cases',
     data: extractActiveCases(duration)(predictionData),
-  }]
+  }],
 })
 
 const extractActiveCases = duration => data => {
@@ -134,7 +137,7 @@ const extractActiveCases = duration => data => {
   for (let i = 0; i < data.length; i++) {
     let sum = 0
     if (i >= duration) {
-      sum -= data[i-duration][1]
+      sum -= data[i - duration][1]
     }
     sum += data[i][1]
     activeCasesData.push([data[i][0], sum])
@@ -164,25 +167,32 @@ class CasesSeriesView extends React.Component {
     if (this.state.predict == null) {
       return <div/>
     }
-    let predictionData = extractPredictedTimeSeriesData(this.state.predict, 120, this.state.populationSize)
+    let predictionData = extractPredictedTimeSeriesData(this.state.predict, 140, this.state.populationSize)
     return (
       <div>
         <h2>{this.props.country}</h2>
         {
           this.props.country &&
-          <>
-            <HighchartsReact
-              highcharts={Highcharts}
-              options={getOptions(
-                extractTimeSeriesData(this.props.timeSeriesData, this.props.country),
-                predictionData,
-              )}
-            />
-            <HighchartsReact
-              highcharts={Highcharts}
-              options={getActiveCasesOptions(21)(predictionData)}
-            />
-          </>
+          <Grid container>
+            <Grid container item xs={9}>
+              <div className={styles.casesTimeSeriesChart}>
+                <HighchartsReact
+                  highcharts={Highcharts}
+                  options={getOptions(
+                    extractTimeSeriesData(this.props.timeSeriesData, this.props.country),
+                    predictionData
+                  )}
+                />
+                <HighchartsReact
+                  highcharts={Highcharts}
+                  options={getActiveCasesOptions(21)(predictionData)}
+                />
+              </div>
+            </Grid>
+            <Grid container item xs={3}>
+              <PredictionParams p={this.state.predict.p}/>
+            </Grid>
+          </Grid>
         }
       </div>
     )

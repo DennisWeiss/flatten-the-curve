@@ -1,11 +1,12 @@
 const computePredictionFunction = (timeSeriesData, populationSize) => {
-  const unknownRatio = 4
-  const learningRate = Math.pow(10, 4)
+  const unknownRatio = 11
+  const learningRate = Math.pow(10, 2)
 
   const {start, series} = extractSeries(timeSeriesData, populationSize)
   const p = fit(learningRate)(series, unknownRatio, populationSize)
   return {
     start,
+    p,
     predict: predict(populationSize)(p),
   }
 }
@@ -36,7 +37,7 @@ const predict = populationSize => p => n => {
 
 const fit = learningRate => (series, unknownRatio, populationSize) => {
   let p = 0.2
-  for (let i = 0; i < 200; i++) {
+  for (let i = 0; i < 1000; i++) {
     console.log('p', p)
     p -= learningRate * lossDerivativeP(series, unknownRatio, populationSize, p)
   }
